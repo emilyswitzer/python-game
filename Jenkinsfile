@@ -1,5 +1,5 @@
 node {
-    def app
+    def main
 
     stage('Clone repository') {
       
@@ -9,13 +9,13 @@ node {
 
     stage('Build image') {
   
-       app = docker.build("emilyswitz/devops-repository")
+       main = docker.build("emilyswitz/devops-repository")
     }
 
     stage('Test image') {
   
 
-        app.inside {
+        main.inside {
             sh 'echo "Tests passed"'
         }
     }
@@ -23,7 +23,7 @@ node {
     stage('Push image') {
         
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-            app.push("${env.BUILD_NUMBER}")
+            main.push("${env.BUILD_NUMBER}")
         }
     }
     
