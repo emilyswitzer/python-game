@@ -1,6 +1,3 @@
-from app.config import TestConfig
-from app import create_app
-app = create_app(TestConfig)
 import unittest
 
 ## some
@@ -9,9 +6,12 @@ class BasicTest(unittest.TestCase):
 
 
     def test_home_valid(self):
-        tester = app.test_client(self)
-        response = tester.get('/acceuil')
-        self.assertEqual(response.status_code, 200)
+        data = [1, 2, 3]
+        result = sum(data)
+        self.assertEqual(result, 6)
 
-if __name__ == '__maim__':
+if __name__ == '__main__':
     unittest.main()
+   
+
+
