@@ -1,2 +1,2 @@
 
-worker: python main:flappybird
+worker: python main.py
