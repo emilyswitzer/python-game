@@ -19,7 +19,7 @@ data = {
             "description": "This is a mango fruit",
             "date": datetime.now()
             }
-        }
+        
     ]
 } 
 
