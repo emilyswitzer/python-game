@@ -1,20 +1,37 @@
-import flask
-import os
-from flask import send_from_directory
+from flask import Flask
+from datetime import datetime
+app = Flask(__name__)
 
-app = flask.Flask(__name__)
+data = {
+    "drinks": [
+        {
+            "name": "Grape", 
+            "description": "Delicious grape fruit drink",
+            "date": datetime.now()
+            },
+            {
+            "name": "Lemon", 
+            "description": "Undiluted lemon fruit drink",
+            "date": datetime.now()
+            },
+            {
+            "name": "Mango", 
+            "description": "This is a mango fruit",
+            "date": datetime.now()
+            }
+        }
+    ]
+} 
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/favicon.png')
+@app.route("/")
+def index():
+        return "Welcome To My Drinks API"
 
-@app.route('/')
-@app.route('/home')
-def home():
-    return "Hello World"
+@app.route('/drinks')
+def get_drinks():
+    return data
+
 
 if __name__ == "__main__":
-    app.secret_key = 'ItIsASecret'
     app.debug = True
     app.run()
