@@ -1,17 +1,12 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
-name: Python application
+name: FlaskApp
 
 on:
   push:
     branches: [ main ]
 
-permissions:
-  contents: read
 
 jobs:
-  build:
+  flask-tests:
 
     runs-on: ubuntu-latest
 
@@ -28,6 +23,12 @@ jobs:
     - name: Run Tests
       run: |
         python -m pytest
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Checkout 
       uses: actions/checkout@v2
     - name: Login to Docker Hub
@@ -35,5 +36,14 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+  deploy:
+    runs-on: ubuntu-latest
   
-   
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name:${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
