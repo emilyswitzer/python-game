@@ -20,15 +20,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run Tests
-      run: |
-        python -m pytest
-
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
     - name: Checkout 
       uses: actions/checkout@v2
     - name: Push to Docker Hub
@@ -36,7 +27,16 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-        repository: ${{secrets.DOCKERHUB_REPO}}
+        repository: "emilyswitz/devops-flask-repo"
+
+  flask-tests:
+
+    runs-on: ubuntu-latest
+
+      steps:
+      - name: Run Tests
+      run: |
+        python -m pytest
  
 
  # deploy:
