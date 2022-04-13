@@ -45,8 +45,9 @@ jobs:
        push: true
        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-repository:latest
        tag_with_ref: true
-    - name: Deploy to heroku 
+    - name: Set up heroku 
       uses: actions/checkout@v2
+    - name: Build and push to heroku 
       uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
       with:
        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
