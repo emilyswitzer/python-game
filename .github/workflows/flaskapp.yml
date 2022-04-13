@@ -22,6 +22,11 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi 
     - name: Checkout 
       uses: actions/checkout@v2
+
+      #build
+    - name: Build Docker image
+      run: |        
+        docker build -t devopsapplicatin:latest .
     - name: Push to Docker Hub
       uses: docker/build-push-action/@v1
       with:
