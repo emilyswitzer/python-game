@@ -35,21 +35,4 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-    - name: Build, Push and Release a Docker container to Heroku.
-      uses: AkhileshNS/heroku-deploy@v3.12.12
-      with:
-        email: ${{ secrets.HEROKU_EMAIL }}
-        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-        heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-        dockerfile_directory: ./
-        dockerfile_name: Dockerfile
-        docker_options: "--no-cache"
-        process_type: web
-<<<<<<< HEAD
-
-
-
-
-
-=======
->>>>>>> cad9b01e2f4308134bbff8d842b8638566f597a9
+ 

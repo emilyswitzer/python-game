@@ -1,22 +1,30 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.8-slim
+#FROM python:3.8-slim
+FROM emilyswitz/devops-repository:latest
 
-EXPOSE 5000
+
+ADD . /code
+
+WORKDIR /code
+#EXPOSE 5000
 
 # Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE=1
+#ENV PYTHONDONTWRITEBYTECODE=1
 
 # Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED=1
+#ENV PYTHONUNBUFFERED=1
 
 # Install pip requirements
-COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
+#COPY requirements.txt .
+#RUN python -m pip install -r requirements.txt
 
-WORKDIR /app
-COPY . /app
+#WORKDIR /app
+#COPY . /app
 
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 #CMD ["python", "app.py"]
-CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
+#CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
+#CMD [ "python", "-m" , "flask", "run"]
+ENTRYPOINT ["python", "app.py"]
+#CMD ["app.py"]
