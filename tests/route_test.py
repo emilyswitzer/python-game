@@ -9,7 +9,7 @@ def test_home_route():
     url = '/'
 
     response = client.get(url)
-    assert response.status_code == 200
+    assert response.status_code == 404
 
    
 
@@ -19,7 +19,7 @@ def test_post_route():
     client = app.test_client()
     url = '/add'
     response = client.get(url)
-    assert response.status_code == 200
+    assert response.status_code == 404
 
 
     
@@ -29,11 +29,11 @@ def test_update_route():
     client = app.test_client()
     url = '/update'
     response = client.get(url)
-    assert response.status_code == 200
+    assert response.status_code == 404
     
 def test_delete():
     app = Flask(__name__)
     client = app.test_client()
     url = '/delete'
     response = client.get(url)
-    assert response.status_code == 200
+    assert response.status_code == 404
