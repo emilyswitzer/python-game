@@ -25,15 +25,20 @@ jobs:
       uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}    
-    - uses: actions/checkout@v3  
-    - name: Build Docker image
-      run: |
-        docker build . --file Dockerfile --tag emilyswitz/devops-repository
-    - uses: actions/checkout@v3  
-    - name: Push into Docker Hub
-      run: |
-        docker push emilyswitz/devops-repository    
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}   
+
+#  publish_docker_mage:
+ #   needs: build
+  #  runs-on: ubuntu-latest
+   # steps:       
+    #- uses: actions/checkout@v3  
+    #- name: Build Docker image
+     # run: |
+      #  docker build . --file Dockerfile --tag emilyswitz/devops-repository
+  #  - uses: actions/checkout@v3  
+   # - name: Push into Docker Hub
+    #  run: |
+     #   docker push emilyswitz/devops-repository    
   
   test:
 
@@ -54,7 +59,18 @@ jobs:
         python -m pytest  
     
  
-
+  publish_docker_mage:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:       
+    - uses: actions/checkout@v3  
+    - name: Build Docker image
+      run: |
+        docker build . --file Dockerfile --tag emilyswitz/devops-repository
+    - uses: actions/checkout@v3  
+    - name: Push into Docker Hub
+      run: |
+        docker push emilyswitz/devops-repository  
  # deploy:
   #  runs-on: ubuntu-latest
   
