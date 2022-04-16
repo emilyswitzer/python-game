@@ -39,7 +39,13 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run Tests
       run: |
-        python -m pytest  
+        python -m pytest 
+    - name: Datadog Agent
+        uses: DataDog/agent-github-action@v1
+        with:
+          api_key: ${{ secrets.DD_API_KEY }}
+          datadog_site: "datadoghq.eu"
+      - run: make test 
     
  
   publish_dockerImage:
