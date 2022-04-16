@@ -21,19 +21,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi   
-    
-#  publish_docker_mage:
- #   needs: build
-  #  runs-on: ubuntu-latest
-   # steps:       
-    #- uses: actions/checkout@v3  
-    #- name: Build Docker image
-     # run: |
-      #  docker build . --file Dockerfile --tag emilyswitz/devops-repository
-  #  - uses: actions/checkout@v3  
-   # - name: Push into Docker Hub
-    #  run: |
-     #   docker push emilyswitz/devops-repository    
   
   test:
     needs: build
@@ -74,15 +61,16 @@ jobs:
       run: |
         docker push emilyswitz/devops-repository  
   Release_to_Heroku:
+    needs: publish_dockerImage
     runs-on: ubuntu-latest
   
     steps:
     - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }} #Must be unique in Heroku
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          usedocker: true
+    - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: ${{ secrets.HEROKU_APP_NAME }} #Must be unique in Heroku
+        heroku_email: ${{ secrets.HEROKU_EMAIL }}
+        usedocker: true
 
  
