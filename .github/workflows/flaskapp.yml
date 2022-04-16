@@ -73,7 +73,7 @@ jobs:
     - name: Push into Docker Hub
       run: |
         docker push emilyswitz/devops-repository  
-  Release docker container to Heroku:
+  Release_to_Heroku:
     runs-on: ubuntu-latest
   
     steps:
