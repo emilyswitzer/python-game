@@ -41,11 +41,12 @@ jobs:
       run: |
         python -m pytest 
     - name: Datadog Agent
-        uses: DataDog/agent-github-action@v1
-        with:
-          api_key: ${{ secrets.DD_API_KEY }}
-          datadog_site: "datadoghq.eu"
-      - run: make test 
+      uses: DataDog/agent-github-action@v1
+      with:
+        api_key: ${{ secrets.DD_API_KEY }}
+        datadog_site: "datadoghq.eu"
+  #    run: |
+   #     make test 
     
  
   publish_dockerImage:
@@ -79,18 +80,4 @@ jobs:
         heroku_email: ${{ secrets.HEROKU_EMAIL }}
         usedocker: true
 
-  Kubernetes:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - uses: Azure/docker-login@v1
-        with:
-          login-server: contoso.azurecr.io
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-
-      - run: |
-          docker build . -t contoso.azurecr.io/k8sdemo:${{ github.sha }} --label dockerfile-path=https://github.com/${{github.repo}}/blob/${{github.sha}}/Dockerfile
-          docker push contoso.azurecr.io/k8sdemo:${{ github.sha }}
  
